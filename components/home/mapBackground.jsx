@@ -1,16 +1,30 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import {View, StyleSheet, Image, Text, Button, Platform, Linking} from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-
+import { api } from '../../api/api';
 
 const MapBackground = ({
     location,
     handleClosePress,
     handleOpenPress,
-    places,
-    category,
+    categoryId,
+    
 })=> {
+  const [places, setPlaces] = useState([]);
+  //беремо місця за ід категорії
+  const getPlace = async () => {
 
+    try {
+      const placesData = await api.getPlaceByCategoryId(categoryId);
+      setPlaces(placesData);
+    } catch (error) {
+      console.error('Failed to update places:', error);
+    }
+  }
+  if (places.length === 0) {
+    getPlace();
+  }
+  
   if (!location) {
     return <View style={styles.container}><Text>Loading map...</Text></View>;
   }
@@ -30,13 +44,12 @@ const MapBackground = ({
         >
             {              
                 places
-                .filter(place => place.category == category) // Фільтруємо місця за категорією
                 .map((place, index) => (
                   <Marker
                     key={index}
-                    coordinate={{ latitude: place.latitude, longitude: place.longitude }}
+                    coordinate={{ latitude: parseFloat(place.latitude), longitude: parseFloat(place.longitude) }}
                     title={place.name}
-                    onPress={() => handleOpenPress(1, place.id)}
+                    onPress={() => handleOpenPress(1, parseFloat(place.id))}
                   />
                 ))
             }

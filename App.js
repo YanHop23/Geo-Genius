@@ -11,8 +11,8 @@ import Map from './components/home/map';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [userId, setUserId] = useState(0); // Початкове значення userId = 0 (не увійшов)
-  const [initialRoute, setInitialRoute] = useState('login'); // Початковий маршрут
+  const [userId, setUserId] = useState(0); 
+  const [initialRoute, setInitialRoute] = useState('home'); 
 
 
   useEffect(() => {

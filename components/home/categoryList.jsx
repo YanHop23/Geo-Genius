@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import CustomCard from '../customcomponents/CustomCard';
 
 const CategoryList = ({ categoryTable, changeCategory }) => {
-    const navigation = useNavigation(); // Отримуємо навігаційний об'єкт
+    const navigation = useNavigation(); 
 
     const handleCategoryPress = (categoryId) => {
         changeCategory(categoryId);
@@ -17,20 +17,20 @@ const CategoryList = ({ categoryTable, changeCategory }) => {
         <CustomCard
             key={item.id} 
             title={item.name} 
-            imageUrl={item.imageUrl} // Зображення береться з бази даних
+            imageUrl={item.imageUrl} 
             onPress={() => handleCategoryPress(item.id)} 
         />
     );
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Choose category</Text>
+            <Text style={styles.title}>Виберіть категорію</Text>
             <FlatList 
-                data={categoryTable} // Джерело даних
-                renderItem={renderCategoryItem} // Функція рендеру кожного елементу
-                keyExtractor={item => item.id.toString()} // Унікальний ключ для кожного елементу
-                numColumns={2} // Вказуємо, що хочемо два стовпці
-                contentContainerStyle={styles.listContainer} // Додаткові стилі для контейнера списку
+                data={categoryTable}
+                renderItem={renderCategoryItem}
+                keyExtractor={item => item.id.toString()} 
+                numColumns={2} 
+                contentContainerStyle={styles.listContainer} 
             />
         </View>
     );
@@ -45,11 +45,14 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 30,
         fontWeight: "500",
-        marginBottom: 20, // Зменшили відступ для кращого вигляду
+        marginBottom: 20, 
     },
     listContainer: {
-        flexGrow: 1, // щоб список займав весь доступний простір
-        alignItems: 'center', // Вирівнюємо елементи по центру
+        flexGrow: 1, 
+        alignItems: 'center', 
+    },
+    card: {
+        backgroundColor: "#fff"
     },
 });
 

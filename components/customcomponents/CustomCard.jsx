@@ -15,7 +15,7 @@ const CustomCard = ({ title, imageUrl, onPress }) => {
 
 const styles = StyleSheet.create({
     card: {
-        backgroundColor: '#b8bbcf',
+        backgroundColor: '#fff',
         borderRadius: 10,
         paddingTop:10,
         overflow: 'hidden',
@@ -29,8 +29,8 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
     },
     image: {
-        width: '70%',
-        height: 140, 
+        width: '80%',
+        height: 150, 
         resizeMode: 'cover', 
     },
     title: {

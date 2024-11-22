@@ -1,4 +1,3 @@
-import { reloadAppAsync } from "expo";
 import {React, useState, useEffect} from "react";
 import { Text, View, StyleSheet, Image, Button, ActivityIndicator } from "react-native";
 import { api } from "../../api/api";

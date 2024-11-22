@@ -1,14 +1,35 @@
 export const state = {
-    UsersTable: [
+    categoryTable: [
         {
             id: "1",
-            firstName: "Олег",
-            lastName: "Положевець",
-            nickName: "alezhka",
-            email: "o",
-            age: "19",
-            password: "1234"
-        }
+            name: "Ресторани",
+            imageUrl: "https://cdn-icons-png.flaticon.com/512/1996/1996055.png",
+        },
+        {
+            id: "2",
+            name: "Готелі",
+            imageUrl: "https://cdn-icons-png.flaticon.com/512/481/481619.png",
+        },
+        {
+            id: "3",
+            name: "Розваги",
+            imageUrl: "https://cdn-icons-png.flaticon.com/512/3981/3981034.png",
+        },
+        {
+            id: "4",
+            name: "Музеї",
+            imageUrl: "https://cdn-icons-png.flaticon.com/512/3936/3936764.png",
+        },
+        {
+            id: "5",
+            name: "Аптеки",
+            imageUrl: "https://cdn-icons-png.flaticon.com/512/3140/3140342.png",
+        },
+        {
+            id: "6",
+            name: "Банки",
+            imageUrl: "https://cdn-icons-png.flaticon.com/512/224/224503.png",
+        },
     ],
     LocationTable: [
         {
@@ -41,36 +62,7 @@ export const state = {
 
         }
     ],
-    categoryTable: [
-        {
-            id: "1",
-            name: "Пиво",
-            imageUrl: "https://cdn-icons-png.flaticon.com/512/761/761856.png",
-        },
-        {
-            id: "2",
-            name: "Не пиво",
-            imageUrl: "https://cdn-icons-png.flaticon.com/512/5690/5690089.png",
-        },
-        
-    ],
 
-    getUserById: function(id) {
-        return this.UsersTable.find(user => user.id === id);
-    },
-
-    getUserByEmail: function(email) {
-        return this.UsersTable.find(user => user.email === email);
-    },
-
-    validateLogin: function(email, password) {
-        const user = this.getUserByEmail(email);
-        if (user && user.password === password) {
-            return { success: true, user };
-        } else {
-            return { success: false, message: 'Неправильний email або пароль' };
-        }
-    }
 };
 
 

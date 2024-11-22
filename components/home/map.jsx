@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import {View, StyleSheet, Image, Text, Button, Platform, Linking} from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
 import MapBackground from './mapBackground';
 import {state} from '../../state'
-import CategoryList from './categoryList';
-// import { fetchImageData, getImage } from '../../api/ImageApi';
 import { CustomBtn } from '../customcomponents/customBtn';
+import { api } from '../../api/api';
+import Rating from './bottomSheet/Comments/Rating';
+import ImageDisplay from './bottomSheet/Image/imageComponent';
+import { RouteBtn } from '../customcomponents/buttonRoute';
 
 const Map = ({route})=> {
     const [location, setLocation] = useState(null);
@@ -17,26 +18,48 @@ const Map = ({route})=> {
     const [directionLat, setDirectionLat] = useState(0);
     const [directionLng, setDirectionLng] = useState(0);
     const [titlePlace, setTitlePlace] = useState('');
+    const [descriptionPlace, setDescriptionPlace] = useState('');
     const bottomSheetRef = useRef(null);
     const snapPoints = useMemo(()=>['25%', '90%'], []);
-    const category = route.params?.category;
-    const [imageUri, setImageUri] = useState(null);
-
-    useEffect(() => {
-        async function getImage() {
-        const uri = await fetchImageData();
-        setImageUri(uri);
+    const categoryId = route.params?.category;
+    const [images, setImages] = useState([]);
+    const [places, setPlaces] = useState([]);
+    const [commenst, setCommenst] = useState([]);
+    //беремо місця за ід категорії
+    const getPlace = async () => {
+  
+      try {
+        const placesData = await api.getPlaceByCategoryId(categoryId);
+        setPlaces(placesData);
+      } catch (error) {
+        console.error('Failed to update places:', error);
+      }
+    }
+    if (places.length === 0) {
+        getPlace();
+    }
+    const getComment = async (placeId) => {
+        try {
+            const commentsData = await api.getCommentByPlaceId(placeId);
+            const imagessData = await api.getImagesByPlaceId(placeId);
+            setCommenst(commentsData);
+            setImages(imagessData)
+            
+            
+        } catch (error) {
+            console.error('Failed to update comments:', error);
         }
-
-        getImage();
-    }, []);
+    }
     const handleClosePress = () =>{
         bottomSheetRef.current?.close();
         setIsVisible(false)
+        setImages([])
     } ;
     const handleOpenPress = (index, id) =>{
-        let markerPlace=state.LocationTable.find((place)=> place.id == id); 
+        getComment(id)
+        let markerPlace=places.find((place)=> place.id == id); 
         setTitlePlace(markerPlace.name);
+        setDescriptionPlace(markerPlace.description)
         setIsVisible(true)
         bottomSheetRef.current?.snapToIndex(index)
         
@@ -44,9 +67,7 @@ const Map = ({route})=> {
         setDirectionLng(markerPlace.longitude)
     } ;
     
-    const changeCategory = (index) => {
-        setCategory(index)
-    }
+    
 
     const onDirectionButton = () => {
 
@@ -99,7 +120,8 @@ const Map = ({route})=> {
                 handleClosePress={handleClosePress}
                 handleOpenPress={handleOpenPress}
                 places={state.LocationTable}
-                category={category}
+                categoryId={categoryId}
+                getPlaceByCategoryId={api.getPlaceByCategoryId}
             />
             {
                 isVisible ?
@@ -110,12 +132,15 @@ const Map = ({route})=> {
                 onClose={() => setIsVisible(false)}
                 >
                 <BottomSheetView style={styles.contentContainer}>
-                    <Text>{titlePlace}</Text>
-                    <Image
-                        source={{ uri: imageUri }}
-                        style={styles.image}
-                    />
-                <CustomBtn title='Переглянути маршрут' onPress={onDirectionButton} width={300}/>
+                    <Text style={styles.title}>{titlePlace}</Text>
+                    <Rating commenst={commenst}/>
+                    <Text>{descriptionPlace}</Text>
+                    <RouteBtn title='Переглянути маршрут' onPress={onDirectionButton}/>
+                    {
+                        images.map((image, index)=>(
+                            <ImageDisplay key={index} imageUri={image}/>
+                        ))
+                    }
                 </BottomSheetView>
                 </BottomSheet>
                 :<></>
@@ -136,13 +161,18 @@ const styles = StyleSheet.create({
     },
     contentContainer: {
         flex: 1,
-        padding: 36,
+        padding: 20,
       },
+    title: {
+        fontFamily: 'Roboto',
+        fontSize: 25,
+        fontWeight: '600',
+        letterSpacing: 0,
+        lineHeight: 24,
+    },
       image: {
-        width: 80,
-        height: 80,
-        borderRadius: 40,
-        marginRight: 15,
+        width: "80%",
+        height: "80%",
     },
 });
 

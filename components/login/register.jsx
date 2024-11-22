@@ -25,7 +25,9 @@ const RegistrationComponent = ({ setUserId }) => {
         password: password,
       };
 
+      // console.log(userData);
       try {
+        
         const result = await api.registerUser(userData);
         Alert.alert('Успішно!', `${firstname}, ви зареєструвалися!`);
         setUserId(result.id);
