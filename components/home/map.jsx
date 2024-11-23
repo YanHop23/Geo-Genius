@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import {View, StyleSheet, Image, Text, Button, Platform, Linking} from 'react-native';
 import * as Location from 'expo-location';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
+import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import MapBackground from './mapBackground';
 import {state} from '../../state'
 import { CustomBtn } from '../customcomponents/customBtn';
@@ -10,6 +10,7 @@ import { api } from '../../api/api';
 import Rating from './bottomSheet/Comments/Rating';
 import ImageDisplay from './bottomSheet/Image/imageComponent';
 import { RouteBtn } from '../customcomponents/buttonRoute';
+import { CommentsDisplay } from './bottomSheet/Comments/Comment';
 
 const Map = ({route})=> {
     const [location, setLocation] = useState(null);
@@ -54,6 +55,8 @@ const Map = ({route})=> {
         bottomSheetRef.current?.close();
         setIsVisible(false)
         setImages([])
+        setCommenst([])
+
     } ;
     const handleOpenPress = (index, id) =>{
         getComment(id)
@@ -129,19 +132,28 @@ const Map = ({route})=> {
                 ref={bottomSheetRef}
                 snapPoints={snapPoints}
                 enablePanDownToClose={true}
-                onClose={() => setIsVisible(false)}
+                onClose={() => {
+                    setIsVisible(false)
+                    setImages([])
+                    setCommenst([])
+                }}
                 >
-                <BottomSheetView style={styles.contentContainer}>
+                <BottomSheetScrollView style={styles.contentContainer}>
                     <Text style={styles.title}>{titlePlace}</Text>
                     <Rating commenst={commenst}/>
                     <Text>{descriptionPlace}</Text>
-                    <RouteBtn title='Переглянути маршрут' onPress={onDirectionButton}/>
+                    <RouteBtn title='Переглянути маршрут' onPress={onDirectionButton}/>      
+                    <Text style={styles.textSub}>Фото:</Text>
+                    <ImageDisplay imageUri={images}/>
+                    <Text style={styles.textSub}>Відгуки:</Text>
+                    
                     {
-                        images.map((image, index)=>(
-                            <ImageDisplay key={index} imageUri={image}/>
+                        commenst.map((comment, index) => (
+                            <CommentsDisplay key={index} comment={comment}/>
                         ))
                     }
-                </BottomSheetView>
+                    <Text style={styles.textSub1}>Відгуки:</Text>
+                </BottomSheetScrollView>
                 </BottomSheet>
                 :<></>
             }
@@ -169,6 +181,19 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         letterSpacing: 0,
         lineHeight: 24,
+    },
+    textSub: {
+        fontSize: 16, 
+        fontWeight: '500',
+        letterSpacing: 0, 
+        lineHeight: 24, 
+    },
+    textSub1: {
+        fontSize: 16, 
+        fontWeight: '500',
+        letterSpacing: 0, 
+        lineHeight: 24,
+        color: '#fff',
     },
       image: {
         width: "80%",

@@ -1,41 +1,45 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet,ActivityIndicator } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons'; // Іконки для зірок
 
 const Rating = ({commenst}) => {
 
-    let halfRating = 0
-    commenst.forEach(comment => {
-        halfRating += comment.rating
-    });
-    halfRating=halfRating / commenst.length
-    
-    
-    return (
-        <View style={styles.container}>
-        <Text style={styles.averageRating}>
-            Середня оцінка: {halfRating.toFixed(1)}
-        </Text>
-        <Text style={styles.numberOfRatings}>
-            Кількість оцінок: {commenst.length}
-        </Text>
-        {/* <View style={styles.starsContainer}>
-            {stars
-            .fill()
-            .map((_, index) => (
-                <FontAwesome key={`filled-${index}`} name="star" style={styles.starFilled} />
-            ))}
-            {2 === 1 && (
-            <FontAwesome name="star-half" style={styles.starHalf} />
-            )}
-            {Array(3)
-            .fill()
-            .map((_, index) => (
-                <FontAwesome key={`empty-${index}`} name="star-o" style={styles.starEmpty} />
-            ))}
-        </View> */}
-        </View>
-    );
+    if (commenst.length == 0) {
+        return <ActivityIndicator size="large" color="#0000ff" />;
+    } else {
+        let halfRating = 0
+        commenst.forEach(comment => {
+            halfRating += comment.rating
+        });
+        halfRating=halfRating / commenst.length
+        let fillStar = Math.floor(halfRating)
+        let emptyStar = 5 - fillStar
+
+        return (
+            <View style={styles.container}>
+            <Text style={styles.averageRating}>
+                {halfRating.toFixed(1)}
+                <Text>  </Text>
+                <View style={styles.starsContainer}>
+                {Array(fillStar)
+                .fill()
+                .map((_, index) => (
+                    <FontAwesome key={`filled-${index}`} name="star" style={styles.starFilled} />
+                ))}
+                {Array(Math.round(emptyStar))
+                .fill()
+                .map((_, index) => (
+                    <FontAwesome key={`empty-${index}`} name="star-o" style={styles.starEmpty} />
+                ))}
+            </View>
+            </Text>
+            <Text style={styles.numberOfRatings}>
+                Кількість оцінок: {commenst.length}
+            </Text>
+            
+            </View>
+        );
+    }
 };
 
 const styles = StyleSheet.create({
@@ -43,7 +47,7 @@ const styles = StyleSheet.create({
         padding: 0,
     },
     averageRating: {
-        fontSize: 18,
+        fontSize: 23,
         fontWeight: '600',
         marginBottom: 5,
     },
@@ -56,17 +60,17 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     starFilled: {
-        fontSize: 24,
+        fontSize: 20,
         color: '#FFD700', // Жовтий
         marginHorizontal: 2,
     },
     starHalf: {
-        fontSize: 24,
+        fontSize: 20,
         color: '#FFD700', // Жовтий
         marginHorizontal: 2,
     },
     starEmpty: {
-        fontSize: 24,
+        fontSize: 20,
         color: '#C0C0C0', // Сірий
         marginHorizontal: 2,
     },

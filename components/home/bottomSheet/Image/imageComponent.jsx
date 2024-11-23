@@ -1,15 +1,21 @@
 import React from 'react';
-import { View, Image, Text, StyleSheet } from 'react-native';
+import { View, Image, Text, StyleSheet,ActivityIndicator } from 'react-native';
 
 const ImageDisplay = ({ imageUri }) => {
+  if (imageUri.length == 0) {
+    return <ActivityIndicator size="large" color="#0000ff" />;
+
     
-  return (
-    <View style={styles.container}>
-      <Image source={{ 
-        uri: `data:image/png;base64,${imageUri.encodedImage}` 
-       }} style={styles.image} resizeMode="cover" />
-    </View>
-  );
+  } else {
+    return (
+      <View style={styles.container}>
+        <Image source={{ 
+          uri: `data:image/png;base64,${imageUri[0].encodedImage}` 
+         }} style={styles.image} resizeMode="cover" />
+      </View>
+    );
+  }
+  
 };
 
 const styles = StyleSheet.create({
@@ -21,12 +27,7 @@ const styles = StyleSheet.create({
     height: 400, // Можна змінити залежно від ваших потреб
     borderRadius: 10,
   },
-  description: {
-    marginTop: 10,
-    fontSize: 16,
-    color: 'gray',
-    textAlign: 'center',
-  },
+
 });
 
 export default ImageDisplay;

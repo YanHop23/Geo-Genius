@@ -1,6 +1,6 @@
 export const api = {
   host: "91.90.123.58",
-  port: "42939",
+  port: "53398",
   registerUser: async function(userData) {
     try {
       const response = await fetch(`http://${this.host}:${this.port}/user`, {
