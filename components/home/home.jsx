@@ -14,7 +14,7 @@ const HomeScreen = ({ route }) => {
         <Tab.Navigator>
             <Tab.Screen 
                 name="App" 
-                children={() => <App />} 
+                children={() => <App/>} 
                 options={{
                     title: 'Map',
                     tabBarIcon: ({ color }) => <FontAwesome size={28} name="map" color={color} />,

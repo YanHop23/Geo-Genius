@@ -14,7 +14,6 @@ export default function App() {
   const [userId, setUserId] = useState(0); 
   const [initialRoute, setInitialRoute] = useState('home'); 
 
-
   useEffect(() => {
     if (userId === 0) {
       setInitialRoute('login');
@@ -38,10 +37,10 @@ export default function App() {
           initialParams={{ userId }}
           options={{ headerShown: false }}
         >
-          {(props) => <HomeScreen {...props} />} 
+          {(props) => <HomeScreen {...props}/>} 
         </Stack.Screen>
 
-        <Stack.Screen name="map" component={Map} />
+        <Stack.Screen name="map" component={Map} options={{ title: 'Geo Genius' }} />
         <Stack.Screen name="entire" options={{ title: 'Welcome' }}>
           {(props) => <EntireScreen {...props} setUserId={setUserId} />}
         </Stack.Screen>

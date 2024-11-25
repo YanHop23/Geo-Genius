@@ -1,6 +1,6 @@
 export const api = {
   host: "91.90.123.58",
-  port: "53398",
+  port: "40341",
   registerUser: async function(userData) {
     try {
       const response = await fetch(`http://${this.host}:${this.port}/user`, {
@@ -142,7 +142,7 @@ export const api = {
   },
   getImagesByPlaceId: async function(placeId) {
     try {
-      const response = await fetch(`http://${this.host}:${this.port}/image/place/${placeId}`, {
+      const response = await fetch(`http://${this.host}:${this.port}/image/place/10`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

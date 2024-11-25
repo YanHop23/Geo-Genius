@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   image: {
-    width: '100%',
+    width: 400,
     height: 400, // Можна змінити залежно від ваших потреб
     borderRadius: 10,
   },

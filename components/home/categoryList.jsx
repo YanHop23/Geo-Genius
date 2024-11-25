@@ -8,8 +8,7 @@ const CategoryList = ({ categoryTable, changeCategory }) => {
 
     const handleCategoryPress = (categoryId) => {
         changeCategory(categoryId);
-        navigation.navigate('map', { category: categoryId });
-        
+        navigation.navigate('map', { category: categoryId });      
         
     };
 

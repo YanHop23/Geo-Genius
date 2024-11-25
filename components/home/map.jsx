@@ -11,6 +11,7 @@ import Rating from './bottomSheet/Comments/Rating';
 import ImageDisplay from './bottomSheet/Image/imageComponent';
 import { RouteBtn } from '../customcomponents/buttonRoute';
 import { CommentsDisplay } from './bottomSheet/Comments/Comment';
+import { Carusel } from './bottomSheet/Image/carusel';
 
 const Map = ({route})=> {
     const [location, setLocation] = useState(null);
@@ -146,8 +147,8 @@ const Map = ({route})=> {
                     <Text style={styles.textSub}>Фото:</Text>
                     <ImageDisplay imageUri={images}/>
                     <Text style={styles.textSub}>Відгуки:</Text>
-                    
-                    {
+                    <Carusel images={images}/>
+                    {   
                         commenst.map((comment, index) => (
                             <CommentsDisplay key={index} comment={comment}/>
                         ))
@@ -196,8 +197,8 @@ const styles = StyleSheet.create({
         color: '#fff',
     },
       image: {
-        width: "80%",
-        height: "80%",
+        width: 80,
+        height: 80,
     },
 });
 
