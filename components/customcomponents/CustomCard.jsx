@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         margin: 10,
         width: '45%', 
         alignItems: 'center',
-        elevation: 5, // додаємо тінь для картки
+        elevation: 10, // додаємо тінь для картки
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.3,

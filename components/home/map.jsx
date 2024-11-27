@@ -1,17 +1,16 @@
 import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
-import {View, StyleSheet, Image, Text, Button, Platform, Linking} from 'react-native';
+import {View, StyleSheet, Image, Text, Button, Platform, Linking,KeyboardAvoidingView} from 'react-native';
 import * as Location from 'expo-location';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import MapBackground from './mapBackground';
 import {state} from '../../state'
-import { CustomBtn } from '../customcomponents/customBtn';
 import { api } from '../../api/api';
 import Rating from './bottomSheet/Comments/Rating';
-import ImageDisplay from './bottomSheet/Image/imageComponent';
 import { RouteBtn } from '../customcomponents/buttonRoute';
 import { CommentsDisplay } from './bottomSheet/Comments/Comment';
 import { Carusel } from './bottomSheet/Image/carusel';
+
 
 const Map = ({route})=> {
     const [location, setLocation] = useState(null);
@@ -22,11 +21,12 @@ const Map = ({route})=> {
     const [titlePlace, setTitlePlace] = useState('');
     const [descriptionPlace, setDescriptionPlace] = useState('');
     const bottomSheetRef = useRef(null);
-    const snapPoints = useMemo(()=>['25%', '90%'], []);
+    const snapPoints = useMemo(()=>['26%', '90%'], []);
     const categoryId = route.params?.category;
     const [images, setImages] = useState([]);
     const [places, setPlaces] = useState([]);
     const [commenst, setCommenst] = useState([]);
+    const [isScrollEnabled, setScrollEnabled] = useState(true);
     //беремо місця за ід категорії
     const getPlace = async () => {
   
@@ -139,22 +139,24 @@ const Map = ({route})=> {
                     setCommenst([])
                 }}
                 >
-                <BottomSheetScrollView style={styles.contentContainer}>
-                    <Text style={styles.title}>{titlePlace}</Text>
-                    <Rating commenst={commenst}/>
-                    <Text>{descriptionPlace}</Text>
-                    <RouteBtn title='Переглянути маршрут' onPress={onDirectionButton}/>      
-                    <Text style={styles.textSub}>Фото:</Text>
-                    <ImageDisplay imageUri={images}/>
-                    <Text style={styles.textSub}>Відгуки:</Text>
-                    <Carusel images={images}/>
-                    {   
-                        commenst.map((comment, index) => (
-                            <CommentsDisplay key={index} comment={comment}/>
-                        ))
-                    }
-                    <Text style={styles.textSub1}>Відгуки:</Text>
-                </BottomSheetScrollView>
+                    <BottomSheetScrollView 
+                    style={styles.contentContainer}
+                    scrollEnabled={isScrollEnabled} 
+                    >
+                        <Text style={styles.title}>{titlePlace}</Text>
+                        <Rating commenst={commenst}/>
+                        <Text>{descriptionPlace}</Text>
+                        <RouteBtn title='Переглянути маршрут' onPress={onDirectionButton}/>      
+                        <Text style={styles.textSub}>Фото:</Text>
+                        <Carusel images={images} setScrollEnabled={setScrollEnabled}/>
+                        {   
+                            commenst.map((comment, index) => (
+                                <CommentsDisplay key={index} comment={comment}/>
+                            ))
+                        }
+                        <Text style={styles.textSub1}>Відгуки:</Text>
+                    </BottomSheetScrollView>
+
                 </BottomSheet>
                 :<></>
             }

@@ -8,7 +8,7 @@ export default LoginScreen = ({navigation }) => {
     return(
         <View style={styles.container}>
             <Text style={styles.title}>
-                maps
+                GeoGenius
             </Text>
             <CustomBtn onPress={() =>
                 navigation.navigate('entire')

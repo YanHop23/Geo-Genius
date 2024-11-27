@@ -33,12 +33,12 @@ export default function PeofileTab({ userId }) {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                {/* <Image
+                <Image
                     style={styles.profileImage}
                     source={{ 
                         uri: `data:image/png;base64,${userData.avatar.encodedImage}` 
                     }}
-                /> */}
+                />
                 <Text style={styles.nameText}>{userData.firstName} {userData.lastName}</Text>
             </View>
             <View style={styles.infoContainer}>

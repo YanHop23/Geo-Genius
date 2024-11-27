@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet,ActivityIndicator } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons'; // Іконки для зірок
+import { FontAwesome } from '@expo/vector-icons'; 
 
 const Rating = ({commenst}) => {
 
@@ -18,7 +18,7 @@ const Rating = ({commenst}) => {
         return (
             <View style={styles.container}>
             <Text style={styles.averageRating}>
-                {halfRating.toFixed(1)}
+                <Text style={styles.textRat}>{halfRating.toFixed(1)}</Text>
                 <Text>  </Text>
                 <View style={styles.starsContainer}>
                 {Array(fillStar)
@@ -61,8 +61,10 @@ const styles = StyleSheet.create({
     },
     starFilled: {
         fontSize: 20,
-        color: '#FFD700', // Жовтий
+        color: '#FFD700', 
         marginHorizontal: 2,
+        paddingTop: 0,
+
     },
     starHalf: {
         fontSize: 20,
@@ -73,6 +75,9 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: '#C0C0C0', // Сірий
         marginHorizontal: 2,
+    },
+    textRat: {
+        marginBottom: 20,
     },
 });
 
