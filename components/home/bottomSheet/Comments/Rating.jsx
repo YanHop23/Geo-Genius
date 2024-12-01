@@ -68,12 +68,12 @@ const styles = StyleSheet.create({
     },
     starHalf: {
         fontSize: 20,
-        color: '#FFD700', // Жовтий
+        color: '#FFD700', 
         marginHorizontal: 2,
     },
     starEmpty: {
         fontSize: 20,
-        color: '#C0C0C0', // Сірий
+        color: '#C0C0C0',
         marginHorizontal: 2,
     },
     textRat: {

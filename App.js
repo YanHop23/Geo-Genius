@@ -20,7 +20,7 @@ export default function App() {
     } else {
       setInitialRoute('home');
     }
-  }, [userId]); // Залежність: зміна userId
+  }, [userId]); 
 
   return (
     <NavigationContainer>
@@ -44,9 +44,7 @@ export default function App() {
         <Stack.Screen name="entire" options={{ title: 'Welcome' }}>
           {(props) => <EntireScreen {...props} setUserId={setUserId} />}
         </Stack.Screen>
-        <Stack.Screen name="validation" options={{ title: 'Welcome' }}>
-          {(props) => <RegisterScreen {...props} setUserId={setUserId} />}
-        </Stack.Screen>
+        
         <Stack.Screen name="register" options={{ title: 'Welcome' }}>
           {(props) => <RegisterScreen {...props} setUserId={setUserId} />}
         </Stack.Screen>

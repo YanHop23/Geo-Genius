@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Image, Text, StyleSheet,ActivityIndicator } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons'; // Іконки для зірок
+import { FontAwesome } from '@expo/vector-icons'; 
 import { api } from '../../../../api/api';
 
 export const CommentsDisplay = ({ comment }) => { 
@@ -107,17 +107,17 @@ const styles = StyleSheet.create({
     },
     starFilled: {
         fontSize: 15,
-        color: '#FFD700', // Жовтий
+        color: '#FFD700', 
         marginHorizontal: 2,
     },
     starHalf: {
         fontSize: 15,
-        color: '#FFD700', // Жовтий
+        color: '#FFD700', 
         marginHorizontal: 2,
     },
     starEmpty: {
         fontSize: 15,
-        color: '#C0C0C0', // Сірий
+        color: '#C0C0C0', 
         marginHorizontal: 2,
     },
   });

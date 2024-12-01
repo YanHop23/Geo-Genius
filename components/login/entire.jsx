@@ -7,7 +7,6 @@ import { api } from "../../api/api";
 const EntireScreen = ({ setUserId }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    
     const navigation = useNavigation();
 
 
@@ -71,7 +70,7 @@ const styles = StyleSheet.create({
       textAlign: 'center',
     },
     input: {
-      height: 40,
+      height: 50,
       borderColor: '#ccc',
       borderWidth: 1,
       borderRadius: 5,

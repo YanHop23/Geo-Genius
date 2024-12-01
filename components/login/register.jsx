@@ -12,6 +12,8 @@ const RegistrationComponent = ({ setUserId }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [age, setAge] = useState('');
+  const [number, setNumber] = useState(0)
+  const [validate, setValidate] = useState(true);
 
   const handleRegister = async () => {
 
@@ -41,7 +43,11 @@ const RegistrationComponent = ({ setUserId }) => {
       Alert.alert('Помилка', 'Будь ласка, заповніть всі поля.');
     }
   };
-
+  const handleLogin = () => {
+    console.log('tetst');
+    
+  }
+  if(validate) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Реєстрація</Text>
@@ -88,6 +94,23 @@ const RegistrationComponent = ({ setUserId }) => {
       <Button title="Зареєструватися" onPress={handleRegister} />
     </View>
   );
+
+} else {
+return(
+    <View style={styles.container}>
+    <Text style={styles.title}>Підтвердження електронної адреси </Text>
+    <TextInput
+    style={styles.input}
+    placeholder="Введіть номер з пошти"
+    value={email}
+        onChangeText={setNumber}
+        keyboardType="number-pad"
+        autoCapitalize="none"
+        />
+    <Button title="Увійти" onPress={handleLogin} /> : 
+</View>
+);
+}
 };
 
 const styles = StyleSheet.create({
@@ -103,7 +126,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   input: {
-    height: 40,
+    height: 50,
     borderColor: '#ccc',
     borderWidth: 1,
     borderRadius: 5,
